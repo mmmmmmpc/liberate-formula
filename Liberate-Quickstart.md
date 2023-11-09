@@ -36,7 +36,7 @@ Now it's time to start basic configuration to have all the software channels for
   - Go to `Systems` -> `Activation Keys` and click on the top right message `+ Create key`
   - Then, to the new Activation Key, add the following content:
     - `Description`: with some tech describing the acitvation key
-    - `Key`: With the identifier for the key, for example `el9-default` for your EL9 systems
+    - `Key`: With the identifier for the key, for example `sll9-default` for your EL9 systems
       - Note: Keis will have a nimeric prefix depending ont he organization so that there are not to equal keys in the same SUSE Manager
     - `Usage`: Leave blank
     - `Base Channel`: Select one base channel. Depending on your EL version the base channel will be:
@@ -51,12 +51,38 @@ Now it's time to start basic configuration to have all the software channels for
     - Click on `Create Activation Key`
 
 ## Adding Liberate Formula to SUSE Manager and assign it to activation keys
-TODO
+The Liberate Formula is available as an RPM that can be installed in SUSE Manager following these steps
 
- - Assign the configuration channel to the activation key
+ - Add repository by running the following command in SUSE Manager `sudo zypper ar https://download.opensuse.org/repositories/home:/RDiasMateus:/uyuni/SLE-15.4/ liberate`
+ - Install the package by running `zypper in liberate-formula`
+
+Now we can assign the formula to an Activation Key by creating a System Group
+
+ - Go to `Systems` -> `System Groups`
+   - Go to the top right corner and click on `+ Create Group`
+   - Add the following data:
+     - `Name`: liberate
+     - `Description`: Systems to be converted to SUSE Liberty Linux
+   - Once in the `liberate` System Group page you can go to the tab `Formulas`
+     - Select the `Liberate` and click on the `Save` button. 
+       - A new tab called `Liberate` will apear.
+       - You can switch to the `Liberate` tab and find the `Reinstall all packages after conversion` option
+         - Please keep this option selected if you want to reinstall all the packages during conversion to ensure they have SUSE signatures and you do not keep any previous package
+         - If you prefer you can de-select this box and perform the reinstallation afterwards. If you do so, remember to click on the `Save Formula` button
+
+We have now a System Group that has assigned the `Liberate` formula. This formula will only apply once to convert the system to SUSE Liberty Linux, even if you run it multiple times. Now it's time to assign it to the Activation Key
+
+ - Assign the System Group to the activation key
   - Go to `Systems` -> `Activation Keys`
-  - Select the Activation Key, for example `el9-default` for your EL9 systems
-  - Note: Now, when registering any system with this Activation Key, it will automatically subscribe it to the right channels and, by "applying high state", run the conversion to SUSE Liberty Linux.
+  - Select the Activation Key, for example `sll9-default` for your EL9 systems
+    - In the Activation Key page go to `Groups` tab
+      - In the Group tab go to the `Join` tab, then select the `liberate` group and click on the `Join Selected Groups` button
+      The group will be assigned to the Activation Key
+    - To apply the conversion directly during registration, in the Activation Key Page, go to the `Details` tab
+      - Go to `Configuration File Deployment` section and select the checkbox `Deploy configuration files to systems on registration`
+      - Then click on `Update Activation Key`
+
+This way when you register a system with this key it will perform the conversion automatically
 
 ### Registering a new system to SUSE Manager and proceed to the conversion
 - There are two wais to onboard, or register, a new system (a.k.a. minion) with the activation key
@@ -72,7 +98,7 @@ TODO
         - `Password`: If this was selected please provide the password to access the system
         - `SSH Private Key`: If this was selected please provide the file with the private key
           - `SSH Private Key Passphrase`: In case a private key was provided that requires a passphrase to unlock, please provide it here.
-      - `Activation Key`: Select from the menu the Activation key to be used, for example `el9-default`.
+      - `Activation Key`: Select from the menu the Activation key to be used, for example `sll9-default`.
       - `Reactivation Key`: Leave blank it wont be used here
       - `Proxy`: Leave as `None` as it is used for the SUSE Manager specific proxies.
       - Click on the `+ Bootstrap` button to start the registration
@@ -101,7 +127,7 @@ TODO
 
 Note: Configuration channels could be assigned to any already registered system.
 
-- Assign the right Liberty channels to the minion
+- Assign the right Liberty Formula to the system
   - Hacked the change channels feature to allow change channel to SLL9 (needs to be refactored, since the code is now hard coding the channel label) - https://github.com/rjmateus/uyuni/tree/uyuni_hackweek23_rhel_migration
 - Assign the Configuration channel to the registered system on the system's page in `States` -> `Configuration Channels` or in `Configuration` -> `Manager Configuration Channels`
 - Apply high state to system
