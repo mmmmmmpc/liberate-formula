@@ -58,15 +58,24 @@ re_install_from_SLL:
 
 {% elif release <= 8 %} # end else if of rhel 9
 
+# Starting tasks for EL clones 7 or under.
+
 {% if not salt['file.search']('/etc/os-release', 'SLES Expanded Support') %}
+
+{% if osName == 'RHEL' %} # remove release package of rhel
+remove_release_package:
+  cmd.run:
+    - name: "rpm -e --nodeps redhat-release"
+
+{% endif %}
 
 /usr/share/redhat-release:
   file.absent
 
-#/etc/dnf/protected.d/redhat-release.conf:
-#  file.absent
+/etc/dnf/protected.d/redhat-release.conf:
+  file.absent
 
-install_package_lt9:
+install_package_lt8:
   pkg.installed:
     - name: sles_es-release-server
     - refresh: True
@@ -75,7 +84,7 @@ re_install_from_SLL:
   cmd.run:
     - name: "yum -x 'venv-salt-minion' -x 'salt-minion' reinstall '*' -y >> /var/log/yum_sles_es_migration.log"
     - require:
-      - pkg: install_package_lt9
+      - pkg: install_package_lt8
 
 {% endif %} # end if for search
 {% endif %} # end if for release <= 8
