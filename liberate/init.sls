@@ -5,15 +5,12 @@
 {% set release = grains.get('osmajorrelease', None)|int() %}
 {% set osName = grains.get('os', None) %}
 
-# EL 9 and higher
-{% if release == 9 %}
-{% if not salt['file.search']('/etc/os-release', 'SUSE Liberty Linux') %}
+{% if osName == 'RedHat' %} # remove release package of rhel
+remove_release_package:
+  cmd.run:
+    - name: "rpm -e --nodeps redhat-release"
 
-/usr/share/redhat-release:
-  file.absent
-
-/etc/dnf/protected.d/redhat-release.conf:
-  file.absent
+{% endif %}
 
 {% if osName == 'Rocky' %}
 /usr/share/rocky-release/:
@@ -43,6 +40,16 @@ remove_release_package:
     - name: "rpm -e --nodeps oraclelinux-release"
 {% endif %}
 
+# EL 9 and higher
+{% if release == 9 %}
+{% if not salt['file.search']('/etc/os-release', 'SUSE Liberty Linux') %}
+
+/usr/share/redhat-release:
+  file.absent
+
+/etc/dnf/protected.d/redhat-release.conf:
+  file.absent
+
 install_package_9:
   pkg.installed:
     - name: sll-release
@@ -61,13 +68,6 @@ re_install_from_SLL:
 # Starting tasks for EL clones 8 or under.
 
 {% if not salt['file.search']('/etc/os-release', 'SLES Expanded Support') %}
-
-{% if osName == 'RHEL' %} # remove release package of rhel
-remove_release_package:
-  cmd.run:
-    - name: "rpm -e --nodeps redhat-release"
-
-{% endif %}
 
 /usr/share/redhat-release:
   file.absent
