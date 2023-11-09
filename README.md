@@ -4,7 +4,7 @@ Formula for SUSE Manager / Uyuni to convert systems from EL clones to SUSE Liber
 
 # Release a version in OBS
 
-OBS project: https://build.opensuse.org/projects/home:RDiasMateus:uyuni/packages/liberate-formula
+OBS project: https://build.opensuse.org/package/show/home:RDiasMateus:uyuni/liberate-formula
 
 - adapt the version number in the spec file
 - add changes entry
