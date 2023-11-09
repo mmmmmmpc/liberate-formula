@@ -46,11 +46,13 @@ install_package_9:
     - name: sll-release
     - refresh: True
 
+{% if salt['pillar.get']('liberate:reinstall_packages', true) %}
 re_install_from_SLL:
   cmd.run:
     - name: "dnf -x 'venv-salt-minion' reinstall '*' -y >> /var/log/dnf_sll_migration.log"
     - require:
       - pkg: install_package_9
+{% endif %}
 
 {% endif %} # end if for search
 
@@ -90,11 +92,13 @@ install_package_8:
     - name: sles_es-release
     - refresh: True
 
+{% if salt['pillar.get']('liberate:reinstall_packages', true) %}
 re_install_from_SLL:
   cmd.run:
     - name: "yum -x 'venv-salt-minion' -x 'salt-minion' reinstall '*' -y >> /var/log/dnf_sles_es_migration.log"
     - require:
       - pkg: install_package_8
+{% endif %}
 
 {% endif %} # end if for search
 
@@ -125,11 +129,13 @@ install_package_7:
     - name: sles_es-release-server
     - refresh: True
 
+{% if salt['pillar.get']('liberate:reinstall_packages', true) %}
 re_install_from_SLL:
   cmd.run:
     - name: "yum -x 'venv-salt-minion' -x 'salt-minion' reinstall '*' -y >> /var/log/yum_sles_es_migration.log"
     - require:
       - pkg: install_package_7
+{% endif %}
 
 {% endif %} # end if for search
 {% endif %} # end if for release number
