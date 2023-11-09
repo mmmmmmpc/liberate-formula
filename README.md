@@ -30,6 +30,13 @@ OBS project: https://build.opensuse.org/package/show/home:RDiasMateus:uyuni/libe
 
 Analyze if the workaround for EL flavors different from RHEL and CentOS can be removed. Check project https://build.suse.de/package/view_file/SUSE:SLL-9:Import/sll-release/sll-release.spec?expand=1
 
+Salt State & Formula tasks done:
+- remove `/usr/share/redhat-release`: DONE
+- remove `/etc/dnf/protected.d/redhat-release.conf`: DONE
+- install SLL package: DONE
+- re-install all packages from SLL channels: DONE 
+- add option in Formula and UI to select reinstall
+
 RPM Build tasks done:
 - adapt the version number in the spec file
 - add changes entry

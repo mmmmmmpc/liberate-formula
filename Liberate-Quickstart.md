@@ -53,12 +53,7 @@ Now it's time to start basic configuration to have all the software channels for
 ## Adding Liberate Formula to SUSE Manager and assign it to activation keys
 TODO
 
-  - Note: with the contents of init.sls in this repository The state will:
-    - remove `/usr/share/redhat-release`: DONE
-    - remove `/etc/dnf/protected.d/redhat-release.conf`: DONE
-    - install SLL package: DONE
-    - re-install all packages from SLL channels: DONE (missing manually verify if signature have changed)
-- Assign the configuration channel to the activation key
+ - Assign the configuration channel to the activation key
   - Go to `Systems` -> `Activation Keys`
   - Select the Activation Key, for example `el9-default` for your EL9 systems
   - Note: Now, when registering any system with this Activation Key, it will automatically subscribe it to the right channels and, by "applying high state", run the conversion to SUSE Liberty Linux.
