@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Nov  9 16:46:44 UTC 2023 - Ricardo Mateus <rmateus@suse.com>
+
+- Version with support for all flavors 
+
+-------------------------------------------------------------------
 Wed Nov 8 16:51:29 UTC 2023 - Miguel Pérez Colino <miguel.perez@suse.com>
 
 - Initial build
