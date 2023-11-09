@@ -114,7 +114,6 @@ re_install_from_SLL:
       - pkg: install_package_8
 
 {% endif %} # end if for search
-{% endif %} # end if for release 8
 
 
 # EL 7
@@ -149,7 +148,7 @@ re_install_from_SLL:
       - pkg: install_package_7
 
 {% endif %} # end if for search
-{% endif %} # end if for release 7
+{% endif %} # end if for release number
 
 
 {% endif %} # endif of rhel family
