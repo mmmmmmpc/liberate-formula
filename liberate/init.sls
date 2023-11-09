@@ -58,7 +58,7 @@ re_install_from_SLL:
 
 {% elif release <= 8 %} # end else if of rhel 9
 
-# Starting tasks for EL clones 7 or under.
+# Starting tasks for EL clones 8 or under.
 
 {% if not salt['file.search']('/etc/os-release', 'SLES Expanded Support') %}
 
