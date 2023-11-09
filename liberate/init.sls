@@ -137,25 +137,6 @@ remove_release_package:
 
 {% endif %}
 
-{% if osName == 'Rocky' %}
-/usr/share/rocky-release/:
-  file.absent
-
-remove_release_package:
-  cmd.run:
-    - name: "rpm -e --nodeps rocky-release"
-
-{% endif %}
-
-{% if osName == 'AlmaLinux' %}
-/usr/share/almalinux-release/:
-  file.absent
-
-remove_release_package:
-  cmd.run:
-    - name: "rpm -e --nodeps almalinux-release"
-{% endif %}
-
 install_package_7:
   pkg.installed:
     - name: sles_es-release-server
