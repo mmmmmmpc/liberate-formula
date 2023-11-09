@@ -4,7 +4,7 @@
 {% set release = grains.get('osmajorrelease', None)|int() %}
 {% set osName = grains.get('os', None) %}
 
-# EL 9 
+# EL 9
 {% if release == 9 %}
 {% if not salt['file.search']('/etc/os-release', 'SUSE Liberty Linux') %}
 
@@ -63,8 +63,8 @@ re_install_from_SLL:
 {% endif %} # end if for search
 
 
-# EL 8 
-{% elif release == 8 %} 
+# EL 8
+{% elif release == 8 %}
 
 # Starting tasks for EL clones 8 or under.
 
@@ -117,7 +117,7 @@ re_install_from_SLL:
 
 
 # EL 7
-{% elif release == 7 %} 
+{% elif release == 7 %}
 
 # Starting tasks for EL clones 8 or under.
 
@@ -134,6 +134,15 @@ remove_release_package:
   cmd.run:
     - name: "rpm -e --nodeps redhat-release"
 
+{% endif %}
+
+{% if osName == 'OEL' %}
+/usr/share/oraclelinux-release/:
+  file.absent
+
+remove_release_package:
+  cmd.run:
+    - name: "rpm -e --nodeps oraclelinux-release-el7"
 {% endif %}
 
 install_package_7:

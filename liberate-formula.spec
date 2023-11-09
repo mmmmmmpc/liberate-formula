@@ -16,12 +16,12 @@
 #
 
 Name:           liberate-formula
-Version:        0.1
+Version:        0.0.1
 Release:        0
 Summary:        Formula to liberate servers and convert them to SLL
 License:        GPL-3.0
 Group:          System/Packages
-Source:         liberate-formula-%{version}.tar.xz
+Source:         liberate-formula-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch
 %define fname liberate
