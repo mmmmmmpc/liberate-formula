@@ -19,12 +19,12 @@ OBS project: https://build.opensuse.org/package/show/home:RDiasMateus:uyuni/libe
 | Alma 9      | Working |
 | Oracle 9    | Working |
 | Rhel 8      | Working |
-| Rocky 8     | |
-| Alma 8      | |
-| Oracle 8    | |
-| Rhel 7      | |
+| Rocky 8     | Working |
+| Alma 8      | Working |
+| Oracle 8    | Not Tested |
+| Rhel 7      | Working |
 | CentOS 7    | Working |
-| Oracle 7    | |
+| Oracle 7    | Not Tested |
 
 # Notes
 
@@ -35,7 +35,7 @@ Salt State & Formula tasks done:
 - remove `/etc/dnf/protected.d/redhat-release.conf`: DONE
 - install SLL package: DONE
 - re-install all packages from SLL channels: DONE 
-- add option in Formula and UI to select reinstall
+- add option in Formula and UI to select reinstall: DONE
 
 RPM Build tasks done:
 - adapt the version number in the spec file
