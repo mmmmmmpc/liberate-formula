@@ -22,6 +22,7 @@ We will be installing the formula from the RPM created in Open Build Service
   - `zypper ref`
 - Install formula
   - `zypper in liberate-formula`
+  - You will be requested to accept the gpg signing key. To do so, press `a`
 
 ## Configuring SUSE Manager
 Now it's time to start basic configuration to have all the software channels for [SUSE Liberty Linux](https://www.suse.com/products/suse-liberty-linux/) available for the conversion.
