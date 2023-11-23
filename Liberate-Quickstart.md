@@ -13,6 +13,16 @@ First requirement is to have [SUSE Manager 4.3](https://www.suse.com/download/su
     - Install SUSE Manager following [Documentation](https://documentation.suse.com/suma/4.3/en/suse-manager/installation-and-upgrade/install-server-unified.html)
   - Complete initial SUSE Manager setup following [Documentation](https://documentation.suse.com/suma/4.3/en/suse-manager/installation-and-upgrade/server-setup.html)
 
+## Install formula
+We will be installing the formula from the RPM created in Open Build Service
+
+- Add repository
+  - `zypper ar https://download.opensuse.org/repositories/home:/RDiasMateus:/uyuni/SLE-15.4/ liberate-fomula`
+- Refresh repo metadata
+  - `zypper ref`
+- Install formula
+  - `zypper in liberate-formula`
+
 ## Configuring SUSE Manager
 Now it's time to start basic configuration to have all the software channels for [SUSE Liberty Linux](https://www.suse.com/products/suse-liberty-linux/) available for the conversion.
 
