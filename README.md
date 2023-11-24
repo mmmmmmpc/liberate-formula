@@ -21,10 +21,10 @@ OBS project: https://build.opensuse.org/package/show/home:RDiasMateus:uyuni/libe
 | Rhel 8      | Working |
 | Rocky 8     | Working |
 | Alma 8      | Working |
-| Oracle 8    | Not Tested |
-| Rhel 7      | Working |
+| Oracle 8    | Working |
+| Rhel 7      | Not Tested |
 | CentOS 7    | Working |
-| Oracle 7    | Not Tested |
+| Oracle 7    | Working |
 
 # Notes
 
