@@ -127,6 +127,10 @@ This way when you register a system with this key it will perform the conversion
       - Click now in the `Update` button to refresh the bootstrap script `bootstrap.sh`
         - Bootstrap script generated is reachable via web by accesing the server path `/pub/bootstrap/`, for example for a server named `suma.suse.lab` it will be at https://suma.suse.lab/pub/bootstrap/
         - Accessing SUSE Manager server via SSH the bootstrap script is available in `/srv/www/htdocs/pub/bootstrap/`
+          - Copy the bootstrap script in `/srv/www/htdocs/pub/bootstrap/` by running `cp bootstrap.sh bootstrap-sll9.sh`
+          - Edit `bootstrap-sll9.sh` and add the activation key you want to use, i.e. `sll9-default` to the line `ACTIVATION_KEYS=` leaving it as `ACTIVATION_KEYS=sll9-default`
+          - Run the newly created bootstrap script, i.e. `bootstrap-sll9.sh`, in the machines to be registered and converted
+            - A quick way to do it is by running `curl -Sks https://your.suma.server/pub/bootstrap/bootstrap-sll9.sh | /bin/bash` as root in the machine
 - Configuration channel and software channels will be assigned automatically by the Activation Key
 - Apply high state and the minion will be migrated to SLL/SLES-ES
   - The high state apply will both apply the configuration channel and migrate the machine to Liberty Linux
