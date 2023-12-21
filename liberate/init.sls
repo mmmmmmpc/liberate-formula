@@ -115,6 +115,20 @@ re_install_from_SLL:
 /etc/dnf/protected.d/redhat-release.conf:
   file.absent
 
+{% if osName == 'CentOS' %}
+/usr/share/centos-release/:
+  file.absent
+
+remove_release_package:
+  cmd.run:
+    - name: "rpm -e --nodeps centos-release"
+
+remove_logos_package:
+  cmd.run:
+    - name: "rpm -e --nodeps centos-logos"
+
+{% endif %}
+
 {% if osName == 'OEL' %}
 /usr/share/oraclelinux-release/:
   file.absent
@@ -128,6 +142,12 @@ install_package_7:
   pkg.installed:
     - name: sles_es-release-server
     - refresh: True
+
+install_logos_7:
+  pkg.installed:
+    - name: sles_es-logos
+    - refresh: True
+
 
 {% if salt['pillar.get']('liberate:reinstall_packages', true) %}
 re_install_from_SLL:

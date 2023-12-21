@@ -9,22 +9,22 @@ https://hackweek.opensuse.org/23/projects/use-uyuni-to-migrate-el-linux-to-sll
 # Release a version in OBS
 OBS project: https://build.opensuse.org/package/show/home:RDiasMateus:uyuni/liberate-formula
 
-## Version testing status
+## Version testing status 
 
 
-| OS version  | Status  |
-| ----------- | ------- |
-| Rhel 9      | Working |
-| Rocky 9     | Working |
-| Alma 9      | Working |
-| Oracle 9    | Working |
-| Rhel 8      | Working |
-| Rocky 8     | Working |
-| Alma 8      | Working |
-| Oracle 8    | Working |
-| Rhel 7      | Not Tested |
-| CentOS 7    | Working |
-| Oracle 7    | Working |
+| OS version  | Status 0.1 | Status Main |
+| ----------- | ---------- | ----------- |
+| Rhel 9      | Working | Not Tested |
+| Rocky 9     | Working | Not Tested |
+| Alma 9      | Working | Not Tested |
+| Oracle 9    | Working | Not Tested |
+| Rhel 8      | Working | Not Tested |
+| Rocky 8     | Working | Not Tested |
+| Alma 8      | Working | Not Tested |
+| Oracle 8    | Working | Not Tested |
+| Rhel 7      | Not Tested | Not Tested |
+| CentOS 7    | Working | Not Tested |
+| Oracle 7    | Working | Not Tested |
 
 # Notes
 
