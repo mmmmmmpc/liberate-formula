@@ -1,12 +1,21 @@
 {% if grains['os_family'] == 'RedHat' %}
-# should we touch a file to check if the SLL with SUMA convertion was already done?
+
+# Check if this machine was not already liberated
+{% if not salt['file.file_exists']('/etc/sysconfig/liberated') %}
 
 {% set release = grains.get('osmajorrelease', None)|int() %}
 {% set osName = grains.get('os', None) %}
+{% set reinstallPackages = salt['pillar.get']('liberate:reinstall_packages', true) %}
+
+{% set liberated = false %}
+{% set liberationDate = salt['system.get_system_date']() %}
+
+{% set isLiberty = salt['file.search']('/etc/os-release', 'SUSE Liberty Linux') %}
+{% set isSleES = salt['file.search']('/etc/os-release', 'SLES Expanded Support') %}
 
 # EL 9
 {% if release == 9 %}
-{% if not salt['file.search']('/etc/os-release', 'SUSE Liberty Linux') %}
+{% if not isLiberty %}
 
 /usr/share/redhat-release:
   file.absent
@@ -46,13 +55,20 @@ install_package_9:
     - name: sll-release
     - refresh: True
 
-{% if salt['pillar.get']('liberate:reinstall_packages', true) %}
+install_logos_9:
+  pkg.installed:
+    - name: sll-logos
+    - refresh: True
+
+{% if reinstallPackages %}
 re_install_from_SLL:
   cmd.run:
     - name: "dnf -x 'venv-salt-minion' reinstall '*' -y >> /var/log/dnf_sll_migration.log"
     - require:
       - pkg: install_package_9
 {% endif %}
+
+{% set liberated = true %}
 
 {% endif %} # end if for search
 
@@ -61,7 +77,7 @@ re_install_from_SLL:
 {% elif release == 8 %}
 
 # Starting tasks for EL clones 8 or under.
-{% if not salt['file.search']('/etc/os-release', 'SLES Expanded Support') %}
+{% if not isSleES and not isLiberty %}
 
 /usr/share/redhat-release:
   file.absent
@@ -92,13 +108,20 @@ install_package_8:
     - name: sles_es-release
     - refresh: True
 
-{% if salt['pillar.get']('liberate:reinstall_packages', true) %}
+install_logos_8:
+  pkg.installed:
+    - name: sles_es-logos
+    - refresh: True
+
+{% if reinstallPackages %}
 re_install_from_SLL:
   cmd.run:
     - name: "yum -x 'venv-salt-minion' -x 'salt-minion' reinstall '*' -y >> /var/log/dnf_sles_es_migration.log"
     - require:
       - pkg: install_package_8
 {% endif %}
+
+{% set liberated = true %}
 
 {% endif %} # end if for search
 
@@ -107,7 +130,7 @@ re_install_from_SLL:
 {% elif release == 7 %}
 
 # Starting tasks for EL clones 8 or under.
-{% if not salt['file.search']('/etc/os-release', 'SLES Expanded Support') %}
+{% if not isSleES and not isLiberty %}
 
 /usr/share/redhat-release:
   file.absent
@@ -148,8 +171,7 @@ install_logos_7:
     - name: sles_es-logos
     - refresh: True
 
-
-{% if salt['pillar.get']('liberate:reinstall_packages', true) %}
+{% if reinstallPackages %}
 re_install_from_SLL:
   cmd.run:
     - name: "yum -x 'venv-salt-minion' -x 'salt-minion' reinstall '*' -y >> /var/log/yum_sles_es_migration.log"
@@ -157,8 +179,21 @@ re_install_from_SLL:
       - pkg: install_package_7
 {% endif %}
 
+{% set liberated = true %}
+
 {% endif %} # end if for search
+
 {% endif %} # end if for release number
 
+create_liberation_file:
+  file.managed:
+    - name: /etc/sysconfig/liberated
+    - contents: |
+        LIBERATED="{{ liberated }}"
+        LIBERATED_FROM="{{ osName }} {{ release }}"
+        LIBERATED_DATE="{{ liberationDate }}"
+        LIBERATED_REINSTALLED="{{ reinstallPackages }}"
+
+{% endif %} # end if file /etc/sysconfig/liberated exists
 
 {% endif %} # endif of rhel family
