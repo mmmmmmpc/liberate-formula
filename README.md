@@ -1,6 +1,11 @@
 # liberate-formula
 Formula for SUSE Manager / Uyuni to convert systems from EL clones to SUSE Liberty Linux
 
+*This repo is now deprecated, please use*:
+https://github.com/SUSE/salt-formulas/tree/master/liberate-formula
+
+Keeping the rest of the content for achiving purposes ...
+
 Please check [Quickstart](Liberate-Quickstart.md) to learn how to use it
 
 This is the result of the Hackweek 23 project:
